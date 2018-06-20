@@ -1,12 +1,17 @@
 package interpreter;
 
 import org.junit.Assert;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class InterpreterTests {
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
     @Test
     public void TestInterpreterWithSingleDigitIntegerReturnsIntegerValue() {
@@ -371,6 +376,54 @@ public class InterpreterTests {
         int result = interpreter.expr();
 
         Assert.assertEquals(3, result);
+    }
+
+    @Test
+    public void TestInterpreterParenthesesEmptyBodyThrowsException() {
+        thrown.expect(RuntimeException.class);
+        thrown.expectMessage("Invalid syntax");
+
+        Lexer mockLexer = mock(LexerImpl.class);
+        when(mockLexer.getNextToken()).thenReturn(new Token(TokenType.LPAREN, '('),
+                new Token(TokenType.RPAREN, ')'), new Token(TokenType.EOF, Character.MIN_VALUE));
+
+        var interpreter = new Interpreter(mockLexer);
+        interpreter.expr();
+
+        // Shouldn't get past here
+    }
+
+    @Test
+    public void TestInterpreterParenthesesUnbalancedThrowsException() {
+        thrown.expect(RuntimeException.class);
+        thrown.expectMessage("Invalid syntax");
+
+        Lexer mockLexer = mock(LexerImpl.class);
+        when(mockLexer.getNextToken()).thenReturn(new Token(TokenType.LPAREN, '('),
+                new Token(TokenType.LPAREN, '('), new Token(TokenType.INTEGER, 4),
+                new Token(TokenType.PLUS, '+'), new Token(TokenType.INTEGER, 5),
+                new Token(TokenType.RPAREN, ')'), new Token(TokenType.EOF, Character.MIN_VALUE));
+
+        var interpreter = new Interpreter(mockLexer);
+        interpreter.expr();
+
+        // Shouldn't get here
+    }
+
+    @Test
+    public void TestInterpreterInvalidSumExpressionThrowsException() {
+        thrown.expect(RuntimeException.class);
+        thrown.expectMessage("Invalid syntax");
+
+        Lexer mockLexer = mock(LexerImpl.class);
+        when(mockLexer.getNextToken()).thenReturn(new Token(TokenType.INTEGER, 2),
+                new Token(TokenType.PLUS, '+'), new Token(TokenType.PLUS, '+'),
+                new Token(TokenType.EOF, Character.MIN_VALUE));
+
+        var interpreter = new Interpreter(mockLexer);
+        interpreter.expr();
+
+        // Shouldn't get here
     }
 
 }
