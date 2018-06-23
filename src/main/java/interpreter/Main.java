@@ -12,8 +12,9 @@ public class Main {
             String text = input.nextLine();
 
             var lexer = new LexerImpl(text);
-            var interpreter = new Interpreter(lexer);
-            int result = interpreter.expr();
+            var parser = new Parser(lexer);
+            var interpreter = new Interpreter(parser);
+            int result = interpreter.interpret();
             System.out.println(result);
         }
     }

@@ -1,12 +1,17 @@
 package interpreter;
 
-public class Num extends AST {
+public class Num extends AST implements ASTElement {
     private Token token;
     private int value;
 
     public Num(Token token) {
         this.setToken(token);
         this.setValue(token.getValue());
+    }
+
+    @Override
+    public void accept(NodeVisitor visitor) {
+        visitor.visit(this);
     }
 
     public Token getToken() {

@@ -18,7 +18,7 @@ public class InterpreterTests {
         Lexer mockLexer = mock(LexerImpl.class);
         when(mockLexer.getNextToken()).thenReturn(new Token(TokenType.INTEGER, 5), new Token(TokenType.EOF, Character.MIN_VALUE));
 
-        var interpreter = new Interpreter(mockLexer);
+        var interpreter = new _old(mockLexer);
         int result = interpreter.expr();
 
         Assert.assertEquals(5, result);
@@ -29,7 +29,7 @@ public class InterpreterTests {
         Lexer mockLexer = mock(LexerImpl.class);
         when(mockLexer.getNextToken()).thenReturn(new Token(TokenType.INTEGER, 12), new Token(TokenType.EOF, Character.MIN_VALUE));
 
-        var interpreter = new Interpreter(mockLexer);
+        var interpreter = new _old(mockLexer);
         int result = interpreter.expr();
 
         Assert.assertEquals(12, result);
@@ -42,7 +42,7 @@ public class InterpreterTests {
                 new Token(TokenType.PLUS, '+'), new Token(TokenType.INTEGER, 8),
                 new Token(TokenType.EOF, Character.MIN_VALUE));
 
-        var interpreter = new Interpreter(mockLexer);
+        var interpreter = new _old(mockLexer);
         int result = interpreter.expr();
 
         Assert.assertEquals(10, result);
@@ -55,7 +55,7 @@ public class InterpreterTests {
                 new Token(TokenType.MINUS, '-'), new Token(TokenType.INTEGER, 8),
                 new Token(TokenType.EOF, Character.MIN_VALUE));
 
-        var interpreter = new Interpreter(mockLexer);
+        var interpreter = new _old(mockLexer);
         int result = interpreter.expr();
 
         Assert.assertEquals(2, result);
@@ -68,7 +68,7 @@ public class InterpreterTests {
                 new Token(TokenType.MUL, '*'), new Token(TokenType.INTEGER, 12),
                 new Token(TokenType.EOF, Character.MIN_VALUE));
 
-        var interpreter = new Interpreter(mockLexer);
+        var interpreter = new _old(mockLexer);
         int result = interpreter.expr();
 
         Assert.assertEquals(144, result);
@@ -81,7 +81,7 @@ public class InterpreterTests {
                 new Token(TokenType.DIV, '/'), new Token(TokenType.INTEGER, 12),
                 new Token(TokenType.EOF, Character.MIN_VALUE));
 
-        var interpreter = new Interpreter(mockLexer);
+        var interpreter = new _old(mockLexer);
         int result = interpreter.expr();
 
         Assert.assertEquals(1, result);
@@ -95,7 +95,7 @@ public class InterpreterTests {
                 new Token(TokenType.MUL, '*'), new Token(TokenType.INTEGER, 6),
                 new Token(TokenType.EOF, Character.MIN_VALUE));
 
-        var interpreter = new Interpreter(mockLexer);
+        var interpreter = new _old(mockLexer);
         int result = interpreter.expr();
 
         Assert.assertEquals(-8, result);
@@ -109,7 +109,7 @@ public class InterpreterTests {
                 new Token(TokenType.MINUS, '-'), new Token(TokenType.INTEGER, 5),
                 new Token(TokenType.EOF, Character.MIN_VALUE));
 
-        var interpreter = new Interpreter(mockLexer);
+        var interpreter = new _old(mockLexer);
         int result = interpreter.expr();
 
         Assert.assertEquals(3, result);
@@ -123,7 +123,7 @@ public class InterpreterTests {
                 new Token(TokenType.MUL, '*'), new Token(TokenType.INTEGER, 5),
                 new Token(TokenType.EOF, Character.MIN_VALUE));
 
-        var interpreter = new Interpreter(mockLexer);
+        var interpreter = new _old(mockLexer);
         int result = interpreter.expr();
 
         Assert.assertEquals(22, result);
@@ -137,7 +137,7 @@ public class InterpreterTests {
                 new Token(TokenType.PLUS, '+'), new Token(TokenType.INTEGER, 5),
                 new Token(TokenType.EOF, Character.MIN_VALUE));
 
-        var interpreter = new Interpreter(mockLexer);
+        var interpreter = new _old(mockLexer);
         int result = interpreter.expr();
 
         Assert.assertEquals(13, result);
@@ -151,7 +151,7 @@ public class InterpreterTests {
                 new Token(TokenType.DIV, '/'), new Token(TokenType.INTEGER, 2),
                 new Token(TokenType.EOF, Character.MIN_VALUE));
 
-        var interpreter = new Interpreter(mockLexer);
+        var interpreter = new _old(mockLexer);
         int result = interpreter.expr();
 
         Assert.assertEquals(1, result);
@@ -165,7 +165,7 @@ public class InterpreterTests {
                 new Token(TokenType.MINUS, '-'), new Token(TokenType.INTEGER, 5),
                 new Token(TokenType.EOF, Character.MIN_VALUE));
 
-        var interpreter = new Interpreter(mockLexer);
+        var interpreter = new _old(mockLexer);
         int result = interpreter.expr();
 
         Assert.assertEquals(5, result);
@@ -179,7 +179,7 @@ public class InterpreterTests {
                 new Token(TokenType.DIV, '/'), new Token(TokenType.INTEGER, 5),
                 new Token(TokenType.EOF, Character.MIN_VALUE));
 
-        var interpreter = new Interpreter(mockLexer);
+        var interpreter = new _old(mockLexer);
         int result = interpreter.expr();
 
         Assert.assertEquals(7, result);
@@ -193,7 +193,7 @@ public class InterpreterTests {
                 new Token(TokenType.PLUS, '+'), new Token(TokenType.INTEGER, 5),
                 new Token(TokenType.EOF, Character.MIN_VALUE));
 
-        var interpreter = new Interpreter(mockLexer);
+        var interpreter = new _old(mockLexer);
         int result = interpreter.expr();
 
         Assert.assertEquals(11, result);
@@ -207,14 +207,14 @@ public class InterpreterTests {
                 new Token(TokenType.PLUS, '+'), new Token(TokenType.INTEGER, 8),
                 new Token(TokenType.RPAREN, ')'), new Token(TokenType.EOF, Character.MIN_VALUE));
 
-        var interpreter = new Interpreter(mockLexer);
+        var interpreter = new _old(mockLexer);
         int result = interpreter.expr();
 
         Assert.assertEquals(10, result);
     }
 
     @Test
-    public void TestInterpreterSimpleSumWithMultipleNestingOfParenthesesReturnsCorrectResult() {
+    public void TestParserSimpleSumWithMultipleNestingOfParenthesesReturnsCorrectResult() {
         Lexer mockLexer = mock(LexerImpl.class);
         when(mockLexer.getNextToken()).thenReturn(new Token(TokenType.LPAREN, '('),
                 new Token(TokenType.LPAREN, '('), new Token(TokenType.INTEGER, 2),
@@ -222,10 +222,14 @@ public class InterpreterTests {
                 new Token(TokenType.RPAREN, ')'), new Token(TokenType.RPAREN, ')'),
                 new Token(TokenType.EOF, Character.MIN_VALUE));
 
-        var interpreter = new Interpreter(mockLexer);
-        int result = interpreter.expr();
+        var parser = new Parser(mockLexer);
+        AST result = parser.expr();
 
-        Assert.assertEquals(10, result);
+        Assert.assertTrue(result instanceof BinOp);
+        BinOp binOpResult = (BinOp)result;
+        Assert.assertTrue(binOpResult.getLeft() instanceof Num);
+        Assert.assertTrue(binOpResult.getTokenType() == TokenType.PLUS);
+        Assert.assertTrue(binOpResult.getRight() instanceof Num);
     }
 
     @Test
@@ -238,7 +242,7 @@ public class InterpreterTests {
                 new Token(TokenType.INTEGER, 4), new Token(TokenType.RPAREN, ')'),
                 new Token(TokenType.RPAREN, ')'), new Token(TokenType.EOF, Character.MIN_VALUE));
 
-        var interpreter = new Interpreter(mockLexer);
+        var interpreter = new _old(mockLexer);
         int result = interpreter.expr();
 
         Assert.assertEquals(6, result);
@@ -252,7 +256,7 @@ public class InterpreterTests {
                 new Token(TokenType.INTEGER, 8), new Token(TokenType.RPAREN, ')'),
                 new Token(TokenType.EOF, Character.MIN_VALUE));
 
-        var interpreter = new Interpreter(mockLexer);
+        var interpreter = new _old(mockLexer);
         int result = interpreter.expr();
 
         Assert.assertEquals(2, result);
@@ -267,7 +271,7 @@ public class InterpreterTests {
                 new Token(TokenType.MUL, '*'), new Token(TokenType.INTEGER, 6),
                 new Token(TokenType.EOF, Character.MIN_VALUE));
 
-        var interpreter = new Interpreter(mockLexer);
+        var interpreter = new _old(mockLexer);
         int result = interpreter.expr();
 
         Assert.assertEquals(12, result);
@@ -282,7 +286,7 @@ public class InterpreterTests {
                 new Token(TokenType.INTEGER, 5), new Token(TokenType.RPAREN, ')'),
                 new Token(TokenType.EOF, Character.MIN_VALUE));
 
-        var interpreter = new Interpreter(mockLexer);
+        var interpreter = new _old(mockLexer);
         int result = interpreter.expr();
 
         Assert.assertEquals(-2, result);
@@ -297,7 +301,7 @@ public class InterpreterTests {
                 new Token(TokenType.MUL, '*'), new Token(TokenType.INTEGER, 5),
                 new Token(TokenType.EOF, Character.MIN_VALUE));
 
-        var interpreter = new Interpreter(mockLexer);
+        var interpreter = new _old(mockLexer);
         int result = interpreter.expr();
 
         Assert.assertEquals(30, result);
@@ -312,7 +316,7 @@ public class InterpreterTests {
                 new Token(TokenType.INTEGER, 5), new Token(TokenType.RPAREN, ')'),
                 new Token(TokenType.EOF, Character.MIN_VALUE));
 
-        var interpreter = new Interpreter(mockLexer);
+        var interpreter = new _old(mockLexer);
         int result = interpreter.expr();
 
         Assert.assertEquals(18, result);
@@ -327,7 +331,7 @@ public class InterpreterTests {
                 new Token(TokenType.DIV, '/'), new Token(TokenType.INTEGER, 2),
                 new Token(TokenType.EOF, Character.MIN_VALUE));
 
-        var interpreter = new Interpreter(mockLexer);
+        var interpreter = new _old(mockLexer);
         int result = interpreter.expr();
 
         Assert.assertEquals(-1, result);
@@ -342,7 +346,7 @@ public class InterpreterTests {
                 new Token(TokenType.INTEGER, 5), new Token(TokenType.RPAREN, ')'),
                 new Token(TokenType.EOF, Character.MIN_VALUE));
 
-        var interpreter = new Interpreter(mockLexer);
+        var interpreter = new _old(mockLexer);
         int result = interpreter.expr();
 
         Assert.assertEquals(-10, result);
@@ -357,7 +361,7 @@ public class InterpreterTests {
                 new Token(TokenType.DIV, '/'), new Token(TokenType.INTEGER, 5),
                 new Token(TokenType.EOF, Character.MIN_VALUE));
 
-        var interpreter = new Interpreter(mockLexer);
+        var interpreter = new _old(mockLexer);
         int result = interpreter.expr();
 
         Assert.assertEquals(6, result);
@@ -372,7 +376,7 @@ public class InterpreterTests {
                 new Token(TokenType.INTEGER, 5), new Token(TokenType.RPAREN, ')'),
                 new Token(TokenType.EOF, Character.MIN_VALUE));
 
-        var interpreter = new Interpreter(mockLexer);
+        var interpreter = new _old(mockLexer);
         int result = interpreter.expr();
 
         Assert.assertEquals(3, result);
@@ -387,7 +391,7 @@ public class InterpreterTests {
         when(mockLexer.getNextToken()).thenReturn(new Token(TokenType.LPAREN, '('),
                 new Token(TokenType.RPAREN, ')'), new Token(TokenType.EOF, Character.MIN_VALUE));
 
-        var interpreter = new Interpreter(mockLexer);
+        var interpreter = new _old(mockLexer);
         interpreter.expr();
 
         // Shouldn't get past here
@@ -404,8 +408,8 @@ public class InterpreterTests {
                 new Token(TokenType.PLUS, '+'), new Token(TokenType.INTEGER, 5),
                 new Token(TokenType.RPAREN, ')'), new Token(TokenType.EOF, Character.MIN_VALUE));
 
-        var interpreter = new Interpreter(mockLexer);
-        interpreter.expr();
+        var parser = new Parser(mockLexer);
+        parser.parse();
 
         // Shouldn't get here
     }
@@ -420,10 +424,11 @@ public class InterpreterTests {
                 new Token(TokenType.PLUS, '+'), new Token(TokenType.PLUS, '+'),
                 new Token(TokenType.EOF, Character.MIN_VALUE));
 
-        var interpreter = new Interpreter(mockLexer);
+        var interpreter = new _old(mockLexer);
         interpreter.expr();
 
         // Shouldn't get here
+
     }
 
 }
